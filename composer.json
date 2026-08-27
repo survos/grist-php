@@ -1,0 +1,18 @@
+{
+    "name": "survos/grist-php",
+    "type": "library",
+    "description": "Grist API client, record-store adapter, and form/webhook schema model. Framework-agnostic -- usable from Symfony, WordPress, or plain PHP.",
+    "license": "MIT",
+    "keywords": ["grist", "api", "client", "record-store", "spreadsheet", "database"],
+    "autoload": { "psr-4": { "Survos\\Grist\\": "src/" } },
+    "require": {
+        "php": "^8.5",
+        "survos/record-store": "^2.24",
+        "symfony/http-client-contracts": "^3.7"
+    },
+    "suggest": {
+        "symfony/http-client": "A PSR-compatible HttpClientInterface implementation; any implementation will do."
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
