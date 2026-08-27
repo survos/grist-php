@@ -9,6 +9,7 @@ use Survos\Grist\Contract\GristClientInterface;
 use Survos\RecordStore\Contract\RecordStoreAdapterInterface;
 use Survos\RecordStore\Model\ConnectionConfiguration;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Survos\Grist\Client\GristClient;
 
 final readonly class GristAdapterFactory implements AdapterFactoryInterface
 {
@@ -35,7 +36,7 @@ final readonly class GristAdapterFactory implements AdapterFactoryInterface
         $headers = [
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
-            'User-Agent' => 'survos/record-store-bundle',
+            'User-Agent' => 'survos/grist-php',
         ];
         $token = $connection->options['token'] ?? null;
         if (is_string($token) && '' !== trim($token)) {

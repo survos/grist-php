@@ -20,6 +20,7 @@ use Survos\RecordStore\Model\TableReference;
 use Survos\RecordStore\Model\TableSchema;
 use Survos\RecordStore\Model\UpsertRequest;
 use Survos\RecordStore\Model\WriteResult;
+use Survos\Grist\Client\GristClient;
 
 final readonly class GristAdapter implements RecordStoreAdapterInterface
 {
