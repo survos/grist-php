@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Survos\Grist\Service;
 
 /**
- * Reads and extends a Grist document's schema.
+ * Reads and extends a Grist document's schema, addressed by configured application name.
  *
  * Deliberately additive: `addColumns` will create what is missing and leave
  * everything else alone. It never drops or retypes a column, because a document
  * is a place people type things by hand and a reconciling tool that "fixes" a
  * column by replacing it destroys work that exists nowhere else.
+ *
+ * The work itself lives in GristDocument, which is addressed by document id -- a document
+ * being created has no configured name yet, and both entry points must behave identically.
  */
 final readonly class GristSchemaManager
 {
@@ -21,12 +24,7 @@ final readonly class GristSchemaManager
     /** @return list<string> */
     public function tables(string $application): array
     {
-        [$app, $client] = $this->applications->locate($application);
-
-        return array_values(array_filter(
-            array_map(static fn (array $t): mixed => $t['id'] ?? null, $client->tables($app->id)),
-            is_string(...),
-        ));
+        return $this->document($application)->tableIds();
     }
 
     /**
@@ -63,34 +61,13 @@ final readonly class GristSchemaManager
      */
     public function addColumns(string $application, string $table, array $columns): array
     {
+        return $this->document($application)->addColumns($table, $columns);
+    }
+
+    public function document(string $application): GristDocument
+    {
         [$app, $client] = $this->applications->locate($application);
 
-        $present = array_values(array_filter(
-            array_map(static fn (array $c): mixed => $c['id'] ?? null, $client->columns($app->id, $table)),
-            is_string(...),
-        ));
-
-        $payload = [];
-        foreach ($columns as $id => $spec) {
-            $id = (string) $id;
-            if (in_array($id, $present, true)) {
-                continue;
-            }
-            $fields = is_array($spec) ? $spec : ['type' => (string) $spec];
-            $fields['label'] ??= $id;
-            $payload[] = ['id' => $id, 'fields' => $fields];
-        }
-
-        if ([] === $payload) {
-            return [];
-        }
-
-        $client->request(
-            'POST',
-            sprintf('docs/%s/tables/%s/columns', rawurlencode($app->id), rawurlencode($table)),
-            ['json' => ['columns' => $payload]],
-        );
-
-        return array_map(static fn (array $c): string => $c['id'], $payload);
+        return new GristDocument($client, $app->id);
     }
 }
