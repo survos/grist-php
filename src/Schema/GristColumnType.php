@@ -45,10 +45,7 @@ final readonly class GristColumnType
     ): string {
         if (FieldType::Reference === $type) {
             if (null === $referencedTable || '' === trim($referencedTable)) {
-                throw new \InvalidArgumentException(
-                    'A Grist reference column needs the id of the table it points at; '
-                    .'resolve the target table first, or map the field to something else and say so.',
-                );
+                throw new \InvalidArgumentException('A Grist reference column needs the id of the table it points at; resolve the target table first, or map the field to something else and say so.');
             }
 
             return sprintf('%s:%s', $list ? 'RefList' : 'Ref', $referencedTable);
@@ -72,10 +69,10 @@ final readonly class GristColumnType
     /**
      * The `fields` payload for GristSchemaManager::addColumns() / GristDocument::addColumns().
      *
-     * @param array<array-key, string> $choices   allowed values, for Choice and ChoiceList; re-indexed,
-     *                                            because a keyed array encodes as a JSON object and Grist
-     *                                            then shows a Choice column with no choices at all
-     * @param array<string, mixed> $widgetOptions merged over the defaults, e.g. ['numMode' => 'currency']
+     * @param array<array-key, string> $choices       allowed values, for Choice and ChoiceList; re-indexed,
+     *                                                because a keyed array encodes as a JSON object and Grist
+     *                                                then shows a Choice column with no choices at all
+     * @param array<string, mixed>     $widgetOptions merged over the defaults, e.g. ['numMode' => 'currency']
      *
      * @return array<string, mixed>
      */

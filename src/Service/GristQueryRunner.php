@@ -63,10 +63,7 @@ final readonly class GristQueryRunner
         } while ($normalized !== $before);
 
         if (1 !== preg_match('/^(select|with)\b/i', ltrim($normalized))) {
-            throw new \InvalidArgumentException(sprintf(
-                'Only SELECT statements can be run against a Grist document; got: %s',
-                self::excerpt($sql),
-            ));
+            throw new \InvalidArgumentException(sprintf('Only SELECT statements can be run against a Grist document; got: %s', self::excerpt($sql)));
         }
     }
 

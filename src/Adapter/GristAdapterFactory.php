@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Survos\Grist\Adapter;
 
-use Survos\RecordStore\Contract\AdapterFactoryInterface;
+use Survos\Grist\Client\GristClient;
 use Survos\Grist\Contract\GristClientInterface;
+use Survos\RecordStore\Contract\AdapterFactoryInterface;
 use Survos\RecordStore\Contract\RecordStoreAdapterInterface;
 use Survos\RecordStore\Model\ConnectionConfiguration;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Survos\Grist\Client\GristClient;
 
 final readonly class GristAdapterFactory implements AdapterFactoryInterface
 {

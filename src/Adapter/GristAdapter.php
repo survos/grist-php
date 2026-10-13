@@ -20,7 +20,6 @@ use Survos\RecordStore\Model\TableReference;
 use Survos\RecordStore\Model\TableSchema;
 use Survos\RecordStore\Model\UpsertRequest;
 use Survos\RecordStore\Model\WriteResult;
-use Survos\Grist\Client\GristClient;
 
 final readonly class GristAdapter implements RecordStoreAdapterInterface
 {
@@ -169,7 +168,7 @@ final readonly class GristAdapter implements RecordStoreAdapterInterface
     }
 
     /** @param array<string, mixed> $fields
-     *  @return array<string, mixed>
+     * @return array<string, mixed>
      */
     private static function logicalFields(TableReference $table, array $fields): array
     {
@@ -186,7 +185,7 @@ final readonly class GristAdapter implements RecordStoreAdapterInterface
     }
 
     /** @param array<string, mixed> $fields
-     *  @return array<string, mixed>
+     * @return array<string, mixed>
      */
     private static function remoteFields(TableReference $table, array $fields): array
     {

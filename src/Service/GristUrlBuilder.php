@@ -79,10 +79,10 @@ final readonly class GristUrlBuilder
         $response = $this->client->request('POST', sprintf('docs/%s/sql', rawurlencode($documentId)), [
             'json' => [
                 'sql' => 'SELECT t.tableId AS tableId, s.id AS sectionId, p.id AS pageId'
-                    . ' FROM _grist_Tables t'
-                    . ' JOIN _grist_Views_section s ON s.tableRef = t.id AND s.parentId != 0'
-                    . ' JOIN _grist_Pages p ON p.viewRef = s.parentId'
-                    . ' ORDER BY p.pagePos',
+                    .' FROM _grist_Tables t'
+                    .' JOIN _grist_Views_section s ON s.tableRef = t.id AND s.parentId != 0'
+                    .' JOIN _grist_Pages p ON p.viewRef = s.parentId'
+                    .' ORDER BY p.pagePos',
             ],
         ]);
 

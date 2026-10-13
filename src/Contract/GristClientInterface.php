@@ -14,7 +14,7 @@ interface GristClientInterface
 
     /**
      * @param array<string, list<int|float|string|bool|null>> $filters
-     * @param list<string>                                   $sorts
+     * @param list<string>                                    $sorts
      *
      * @return list<array{id: int|string, fields: array<string, mixed>}>
      */

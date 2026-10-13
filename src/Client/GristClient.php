@@ -127,21 +127,13 @@ final readonly class GristClient implements GristClientInterface
                 $value = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
                 $decoded = is_array($value) ? $value : ['data' => $value];
             } catch (\JsonException $exception) {
-                throw new GristApiException(
-                    sprintf('Grist returned invalid JSON (HTTP %d).', $statusCode),
-                    $statusCode,
-                    previous: $exception,
-                );
+                throw new GristApiException(sprintf('Grist returned invalid JSON (HTTP %d).', $statusCode), $statusCode, previous: $exception);
             }
         }
 
         if ($statusCode < 200 || $statusCode >= 300) {
             $message = $decoded['error'] ?? $decoded['message'] ?? sprintf('Grist request failed with HTTP %d.', $statusCode);
-            throw new GristApiException(
-                is_string($message) ? $message : sprintf('Grist request failed with HTTP %d.', $statusCode),
-                $statusCode,
-                $decoded,
-            );
+            throw new GristApiException(is_string($message) ? $message : sprintf('Grist request failed with HTTP %d.', $statusCode), $statusCode, $decoded);
         }
 
         return $decoded;
@@ -190,7 +182,7 @@ final readonly class GristClient implements GristClientInterface
     }
 
     /** @param array<array-key, mixed> $result
-     *  @return list<int|string>
+     * @return list<int|string>
      */
     private static function recordIds(array $result): array
     {

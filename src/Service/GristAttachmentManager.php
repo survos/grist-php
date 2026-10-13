@@ -61,11 +61,8 @@ final readonly class GristAttachmentManager
             ['json' => ['type' => self::EXTERNAL]],
         );
 
-        if ($this->store($client, $app->id) !== self::EXTERNAL) {
-            throw new \RuntimeException(
-                'Grist did not switch this document to external attachment storage. '
-                .'The usual cause is that the server has no external store configured (GRIST_DOCS_MINIO_*).',
-            );
+        if (self::EXTERNAL !== $this->store($client, $app->id)) {
+            throw new \RuntimeException('Grist did not switch this document to external attachment storage. The usual cause is that the server has no external store configured (GRIST_DOCS_MINIO_*).');
         }
 
         if ($transferExisting) {

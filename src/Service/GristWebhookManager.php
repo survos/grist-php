@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Survos\Grist\Service;
 
+use Survos\Grist\Contract\GristClientInterface;
 use Survos\Grist\Model\WebhookBlueprint;
 use Survos\Grist\Model\WebhookDefinition;
-use Survos\Grist\Contract\GristClientInterface;
 
 /**
  * Declarative management of Grist's outgoing webhooks.
@@ -96,12 +96,7 @@ final readonly class GristWebhookManager
         ));
         $unknown = array_diff($referenced, $known);
         if ([] !== $unknown) {
-            throw new \InvalidArgumentException(sprintf(
-                'Unknown column(s) on table "%s": %s. Known columns: %s.',
-                $blueprint->table,
-                implode(', ', $unknown),
-                implode(', ', $known),
-            ));
+            throw new \InvalidArgumentException(sprintf('Unknown column(s) on table "%s": %s. Known columns: %s.', $blueprint->table, implode(', ', $unknown), implode(', ', $known)));
         }
     }
 
